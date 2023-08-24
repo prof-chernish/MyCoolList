@@ -6,6 +6,15 @@ public class MyCoolList<T extends Number> implements List<T> {
     private Object[] array = new Object[capacity];
     private int size = 0;
 
+
+    public <R extends Number> MyCoolList<R> map(Function<? super T, ? extends R> function) {
+        MyCoolList<R> myCoolList = new MyCoolList<>();
+        for (T t: this) {
+            myCoolList.add(function.apply(t));
+        }
+        return myCoolList;
+    }
+
     private boolean isIndexCorrect(int index) {
         return index >= 0 && index < size;
     }
@@ -398,14 +407,4 @@ public class MyCoolList<T extends Number> implements List<T> {
             wasNextCalled = wasPreviousCalled = false;
         }
     }
-
-    public <R extends Number> MyCoolList<R> map(Function<? super T, ? extends R> function) {
-        MyCoolList<R> myCoolList = new MyCoolList<>();
-        for (T t: this) {
-            myCoolList.add(function.apply(t));
-        }
-        return myCoolList;
-    }
-
-
 }
